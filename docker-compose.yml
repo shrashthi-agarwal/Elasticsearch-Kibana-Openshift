@@ -1,0 +1,30 @@
+version: "3"
+services:
+  teampass:
+    image: teampass/teampass
+    restart: always
+    networks:
+      - frontend
+      - backend
+    ports:
+      - 9501:80
+    volumes:
+      - /var/teampass-data/www:/var/www/html
+      - /var/teampass-data/php_session:/var/php/session
+
+  db:
+    restart: always
+    image: mysql/mysql-server:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: mypass
+      MYSQL_DATABASE: teampass
+      MYSQL_PASSWORD: teampass
+      MYSQL_USER: teampass
+    volumes:
+      - /home/centos/teampass/TeamPass/volumes/db/volumes/db:/var/lib/mysql
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
