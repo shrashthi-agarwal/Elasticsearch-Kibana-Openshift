@@ -1,0 +1,8 @@
+uster.name = "docker-cluster"
+network.host = 0.0.0.0
+xpack.license.self_generated.type = basic
+xpack.security.enabled = true
+xpack.monitoring.collection.enabled = true
+ES_JAVA_OPTS = "-Xmx512m -Xms512m"
+ELASTIC_PASSWORD = changeme
+discovery.type = single-node

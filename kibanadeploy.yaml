@@ -1,0 +1,30 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: kibana
+  name: kibana
+  namespace: elk
+spec:
+  replicas: 1
+  selector:
+    name: kibana
+  template:
+    metadata:
+      labels:
+        name: kibana
+    spec:
+     containers:
+        - env:
+           - name: server.name
+             value: kibana
+           - name: server.host
+             value: "0"
+           - name: elasticsearch.hosts
+             value: "http://elasticsearch:9200"
+          image: docker.elastic.co/kibana/kibana:7.5.1
+          name: kibana
+          ports:
+           - containerPort: 5601
+             protocol: "TCP" 
+
