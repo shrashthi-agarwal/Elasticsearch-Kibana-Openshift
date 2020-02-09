@@ -1,0 +1,32 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+  namespace: elk
+spec:
+  replicas: 1
+  selector:
+    name: elasticsearch
+  template:
+    metadata:
+      labels:
+        name: elasticsearch
+    spec:
+     containers:
+        - env:
+           - name: discovery.type
+             value: single-node
+           - name: ES_JAVA_OPTS
+             value: "-Xmx512m -Xms512m"
+           - name: ELASTIC_PASSWORD
+             value: changeme
+          image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+          name: elasticsearch
+          ports:
+           - containerPort: 9200
+             protocol: "TCP"
+           - containerPort: 9300
+             protocol: "TCP"	 
+
